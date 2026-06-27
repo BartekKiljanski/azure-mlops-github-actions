@@ -1,10 +1,6 @@
 # Azure MLOps GitHub Actions
 
-Autor: Bartlomiej Kiljanski
-
 Repozytorium przygotowane do zadania z konfiguracji procesu MLOps. Zrobilem tutaj prosty przyklad pipeline'u w GitHub Actions, ktory uruchamia testy, trenuje model i zapisuje wynik jako artefakt.
-
-Nie jest to pelne wdrozenie produkcyjne w Azure Machine Learning, tylko mala wersja pokazujaca podstawowy mechanizm MLOps. Taki projekt mozna pozniej rozbudowac o logowanie do Azure i rejestracje modelu w Azure ML Workspace.
 
 ## Co jest w projekcie
 
@@ -80,6 +76,3 @@ W tym cwiczeniu skupilem sie na samym procesie MLOps w GitHub Actions. Azure Mac
 
 Zeby podlaczyc ten projekt do Azure ML, trzeba byloby dodac w GitHub sekrety Azure, wykonac logowanie w workflow i zarejestrowac wygenerowany model w Azure ML Workspace. Krotkie notatki do tego sa w pliku [azure/azure-ml-notes.md](azure/azure-ml-notes.md).
 
-## Dokumentacja zadania
-
-Do oddania przygotowywany jest osobny plik Word/PDF ze zrzutami ekranu. W repozytorium zostawilem tylko kod projektu i konfiguracje pipeline'u.
