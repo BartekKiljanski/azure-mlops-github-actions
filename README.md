@@ -1,59 +1,53 @@
 # Azure MLOps GitHub Actions
 
-Projekt przedstawia podstawowy proces MLOps dla Azure Machine Learning z wykorzystaniem GitHub Actions.
-
 Autor: Bartlomiej Kiljanski
 
-Celem cwiczenia jest pokazanie automatyzacji typowego cyklu pracy ML:
+Repozytorium przygotowane do zadania z konfiguracji procesu MLOps. Zrobilem tutaj prosty przyklad pipeline'u w GitHub Actions, ktory uruchamia testy, trenuje model i zapisuje wynik jako artefakt.
 
-- wersjonowanie kodu w repozytorium GitHub,
-- instalacja zaleznosci projektu,
-- uruchomienie testow,
-- trening modelu uczenia maszynowego,
-- zapis metryk treningu,
-- zapis wytrenowanego modelu jako artefaktu pipeline'u,
-- przygotowanie projektu do dalszej integracji z Azure Machine Learning.
+Nie jest to pelne wdrozenie produkcyjne w Azure Machine Learning, tylko mala wersja pokazujaca podstawowy mechanizm MLOps. Taki projekt mozna pozniej rozbudowac o logowanie do Azure i rejestracje modelu w Azure ML Workspace.
 
-## Struktura projektu
+## Co jest w projekcie
+
+- prosty skrypt treningowy w Pythonie,
+- test sprawdzajacy, czy trening tworzy pliki wynikowe,
+- workflow GitHub Actions,
+- zapis modelu do `outputs/model.pkl`,
+- zapis metryk do `outputs/metrics.json`,
+- publikacja wynikow jako artefakt GitHub Actions.
+
+## Struktura
 
 ```text
 .
 ├── .github/workflows/mlops.yml
+├── azure/
+│   └── azure-ml-notes.md
 ├── src/
 │   ├── __init__.py
 │   └── train.py
 ├── tests/
 │   └── test_training.py
-├── azure/
-│   └── azure-ml-notes.md
-├── requirements.txt
 ├── .gitignore
-└── README.md
+├── pytest.ini
+├── README.md
+└── requirements.txt
 ```
 
-## Jak dziala pipeline
+## Jak dziala workflow
 
-Workflow GitHub Actions uruchamia sie po kazdym pushu do galezi `main` oraz po pull requestach.
+Pipeline uruchamia sie po pushu do galezi `main`. W workflow sa wykonane nastepujace kroki:
 
-Etapy workflow:
+1. Pobranie repozytorium.
+2. Przygotowanie Pythona.
+3. Instalacja zaleznosci.
+4. Uruchomienie testow.
+5. Uruchomienie treningu modelu.
+6. Wyswietlenie metryk.
+7. Zapis artefaktow.
 
-1. Pobranie kodu z repozytorium.
-2. Instalacja Pythona.
-3. Instalacja zaleznosci z `requirements.txt`.
-4. Uruchomienie testow jednostkowych.
-5. Trening modelu ML.
-6. Zapis plikow wynikowych w katalogu `outputs/`.
-7. Publikacja artefaktow pipeline'u.
+Po poprawnym przebiegu w zakladce Actions widoczny jest status `success`, a w szczegolach runu dostepny jest artefakt `mlops-model-artifacts`.
 
 ## Uruchomienie lokalne
-
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-pytest
-python src/train.py
-```
 
 Na Windows PowerShell:
 
@@ -61,24 +55,31 @@ Na Windows PowerShell:
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-pytest
+python -m pytest -q
 python src\train.py
 ```
 
-Po uruchomieniu treningu powstanie katalog `outputs/` zawierajacy:
+Na Linux/macOS:
 
-- `model.pkl` - wytrenowany model,
-- `metrics.json` - metryki jakosci modelu.
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python -m pytest -q
+python src/train.py
+```
 
-## Powiazanie z Azure Machine Learning
+Po uruchomieniu treningu powstaje katalog `outputs/` z plikami:
 
-Projekt jest przygotowany jako uproszczony przyklad MLOps. W praktycznym scenariuszu kolejnym krokiem byloby dodanie sekretow Azure w GitHub Actions i opublikowanie modelu do Azure Machine Learning Workspace.
+- `model.pkl` - zapisany model,
+- `metrics.json` - metryki po treningu.
 
-Przykladowe sekrety, ktore mozna dodac w GitHub:
+## Azure Machine Learning
 
-- `AZURE_CLIENT_ID`
-- `AZURE_TENANT_ID`
-- `AZURE_SUBSCRIPTION_ID`
-- `AZURE_CREDENTIALS`
+W tym cwiczeniu skupilem sie na samym procesie MLOps w GitHub Actions. Azure Machine Learning potraktowalem jako kolejny etap rozbudowy projektu.
 
-Szczegoly znajduja sie w pliku [azure/azure-ml-notes.md](azure/azure-ml-notes.md).
+Zeby podlaczyc ten projekt do Azure ML, trzeba byloby dodac w GitHub sekrety Azure, wykonac logowanie w workflow i zarejestrowac wygenerowany model w Azure ML Workspace. Krotkie notatki do tego sa w pliku [azure/azure-ml-notes.md](azure/azure-ml-notes.md).
+
+## Dokumentacja zadania
+
+Do oddania przygotowywany jest osobny plik Word/PDF ze zrzutami ekranu. W repozytorium zostawilem tylko kod projektu i konfiguracje pipeline'u.

@@ -1,16 +1,16 @@
-# Azure Machine Learning - notatki integracyjne
+# Notatki do integracji z Azure Machine Learning
 
-Ten projekt pokazuje uproszczony proces MLOps w GitHub Actions. Moze zostac rozszerzony o integracje z Azure Machine Learning.
+Ten projekt na razie konczy sie na GitHub Actions: testuje kod, trenuje model i zapisuje artefakty. To wystarcza do pokazania podstawowego procesu MLOps.
 
-## Minimalna koncepcja integracji
+Gdybym mial rozbudowac go dalej pod Azure Machine Learning, zrobilbym to w kilku krokach:
 
-1. Utworzenie Azure Machine Learning Workspace.
-2. Utworzenie Service Principal lub federated credentials dla GitHub Actions.
-3. Dodanie sekretow Azure w repozytorium GitHub.
-4. Dodanie kroku logowania do Azure w workflow.
-5. Rejestracja modelu `outputs/model.pkl` w Azure ML Workspace.
+1. Utworzyc Azure Machine Learning Workspace.
+2. Przygotowac dostep dla GitHub Actions, np. przez Service Principal albo federated credentials.
+3. Dodac wymagane sekrety w ustawieniach repozytorium GitHub.
+4. Dodac krok logowania do Azure w workflow.
+5. Po treningu zarejestrowac plik `outputs/model.pkl` jako model w Azure ML.
 
-## Przykladowy krok logowania do Azure
+## Przyklad logowania do Azure
 
 ```yaml
 - name: Azure login
@@ -19,13 +19,13 @@ Ten projekt pokazuje uproszczony proces MLOps w GitHub Actions. Moze zostac rozs
     creds: ${{ secrets.AZURE_CREDENTIALS }}
 ```
 
-## Przykladowe sekrety
+## Sekrety, ktore bylyby potrzebne
 
-W ustawieniach repozytorium GitHub mozna dodac sekrety:
+W repozytorium GitHub mozna dodac np.:
 
 - `AZURE_CREDENTIALS`
 - `AZURE_CLIENT_ID`
 - `AZURE_TENANT_ID`
 - `AZURE_SUBSCRIPTION_ID`
 
-W zadaniu laboratoryjnym najwazniejsze jest pokazanie automatyzacji procesu ML, czyli testow, treningu modelu oraz zapisu artefaktow w GitHub Actions.
+W tej wersji nie dodawalem pelnego wdrozenia do Azure ML, zeby nie komplikowac zadania limitami subskrypcji i konfiguracja zasobow. Najwazniejsze bylo pokazanie automatyzacji: testy, trening modelu i zapis artefaktow po kazdej zmianie w repozytorium.
