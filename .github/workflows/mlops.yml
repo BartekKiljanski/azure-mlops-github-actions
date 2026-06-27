@@ -29,9 +29,13 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run tests
-        run: pytest -q
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+        run: python -m pytest -q
 
       - name: Train model
+        env:
+          PYTHONPATH: ${{ github.workspace }}
         run: python src/train.py
 
       - name: Show generated metrics
