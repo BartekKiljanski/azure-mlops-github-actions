@@ -82,23 +82,3 @@ Przykladowe sekrety, ktore mozna dodac w GitHub:
 - `AZURE_CREDENTIALS`
 
 Szczegoly znajduja sie w pliku [azure/azure-ml-notes.md](azure/azure-ml-notes.md).
-
-## Propozycja zrzutow ekranu do dokumentacji
-
-Do raportu w Wordzie warto wykonac 10-15 zrzutow ekranu:
-
-1. Widok utworzonego repozytorium GitHub.
-2. Struktura plikow projektu.
-3. Plik `src/train.py`.
-4. Plik `.github/workflows/mlops.yml`.
-5. Plik `requirements.txt`.
-6. Zakladka Actions w repozytorium.
-7. Uruchomiony workflow `MLOps pipeline`.
-8. Krok instalacji zaleznosci.
-9. Krok uruchomienia testow.
-10. Krok treningu modelu.
-11. Zielony status zakonczonego workflow.
-12. Widok artefaktu `mlops-model-artifacts`.
-13. Plik `metrics.json` z wynikami modelu.
-14. Koncowy widok repozytorium na GitHubie.
-15. Opcjonalnie widok Azure Portal lub Azure Machine Learning Workspace.
