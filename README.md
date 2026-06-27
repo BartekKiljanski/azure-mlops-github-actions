@@ -102,20 +102,3 @@ Do raportu w Wordzie warto wykonac 10-15 zrzutow ekranu:
 13. Plik `metrics.json` z wynikami modelu.
 14. Koncowy widok repozytorium na GitHubie.
 15. Opcjonalnie widok Azure Portal lub Azure Machine Learning Workspace.
-
-## Opis do sprawozdania
-
-W ramach zadania skonfigurowano prosty proces MLOps z wykorzystaniem GitHub Actions. Pipeline automatycznie instaluje zaleznosci, uruchamia testy, wykonuje trening modelu regresyjnego oraz zapisuje wytrenowany model i metryki jako artefakty. Rozwiazanie prezentuje podstawowe elementy MLOps: powtarzalnosc procesu, automatyzacje, kontrole wersji oraz archiwizacje wyniku treningu.
-
-## Notatki z wykonania
-
-Podczas realizacji cwiczenia najpierw przygotowano podstawowy workflow GitHub Actions, a nastepnie poprawiono konfiguracje testow, poniewaz pierwszy przebieg pipeline'u zakonczyl sie bledem importu modulu `src` na runnerze GitHub. Problem zostal rozwiazany przez dodanie `PYTHONPATH` w workflow oraz pliku `pytest.ini`.
-
-Do projektu wybrano prosty model regresji liniowej napisany w Pythonie bez ciezkich bibliotek ML. Dzieki temu pipeline jest szybki, powtarzalny i dobrze nadaje sie do pokazania samego procesu MLOps: testowanie, trening, zapis metryk i publikacja artefaktow.
-
-Najwazniejszy efekt koncowy:
-
-- workflow `MLOps pipeline` konczy sie statusem `success`,
-- plik `outputs/model.pkl` jest publikowany jako artefakt,
-- plik `outputs/metrics.json` zawiera metryki modelu,
-- repozytorium moze zostac rozszerzone o integracje z Azure Machine Learning.
